@@ -71,7 +71,7 @@ public class InventaireVue {
         Image inventaireVide = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/ciel1.png").toExternalForm());
         ImageView inventaireVideVue;
 
-        int x = -200;
+        int x = 200;
         int y = 40;
 
         if (!inventaire.getMateriauxList().isEmpty()) {

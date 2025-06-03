@@ -8,7 +8,8 @@ public class Joueur {
         private IntegerProperty x = new SimpleIntegerProperty();
         private IntegerProperty y = new SimpleIntegerProperty();
 
-        private char direction = 'i'; // 'i' = immobile, 'g' = gauche, 'd' = droite
+        // Direction avec IntegerProperty : 0 = immobile, -1 = gauche, 1 = droite
+        private IntegerProperty direction = new SimpleIntegerProperty(0);
 
         private int largeurJoueur = 46;
         private int hauteurJoueur = 56;
@@ -38,12 +39,20 @@ public class Joueur {
                 return y;
         }
 
+        public IntegerProperty directionProperty() {
+                return direction;
+        }
+
         public int getX() {
                 return x.get();
         }
 
         public int getY() {
                 return y.get();
+        }
+
+        public int getDirection() {
+                return direction.get();
         }
 
         public void setX(int x) {
@@ -54,19 +63,15 @@ public class Joueur {
                 this.y.set(y);
         }
 
-        public char getDirection() {
-                return direction;
-        }
-
-        public void setDirection(char direction) {
-                this.direction = direction;
+        public void setDirection(int direction) {
+                this.direction.set(direction);
         }
 
         public void seDeplacer() {
-                switch (direction) {
-                        case 'g' -> deplacerGauche();
-                        case 'd' -> deplacerDroite();
-                        // 'i'
+                switch (getDirection()) {
+                        case -1 -> deplacerGauche();
+                        case 1 -> deplacerDroite();
+                        // 0 = immobile
                 }
 
                 appliquerGravite();
@@ -86,6 +91,7 @@ public class Joueur {
                         setX(nouveauX);
                 }
         }
+
         public void saut() {
                 if (!dansLesAirs) {
                         velociteY = FORCE_SAUT;
@@ -106,7 +112,6 @@ public class Joueur {
                         else {
                                 dansLesAirs = false;
                                 velociteY = 0;
-
 
                                 while (!terrain.collision(getX(), getY() + hauteurJoueur + 1) &&
                                         !terrain.collision(getX() + largeurJoueur, getY() + hauteurJoueur + 1)) {

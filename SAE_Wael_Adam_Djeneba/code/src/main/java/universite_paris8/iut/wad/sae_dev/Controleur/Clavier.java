@@ -12,6 +12,7 @@ public class Clavier implements EventHandler<KeyEvent> {
 
     private final Joueur joueur;
     private final JoueurVue joueurVue;
+    private int derniereDirection = 1;
 
     public Clavier(Joueur joueur, JoueurVue joueurVue) {
         this.joueur = joueur;
@@ -23,23 +24,25 @@ public class Clavier implements EventHandler<KeyEvent> {
         if (event.getEventType() == KeyEvent.KEY_PRESSED) {
             switch (event.getCode()) {
                 case LEFT -> {
-                    joueur.setDirection('g');
-                    joueurVue.setDirection("gauche");
+                    joueur.setDirection(-1); // -1 pour gauche
+                    derniereDirection = -1;
                 }
                 case RIGHT -> {
-                    joueur.setDirection('d');
-                    joueurVue.setDirection("droite");
+                    joueur.setDirection(1); // 1 pour droite
+                    derniereDirection = 1;
                 }
                 case SPACE -> {
                     System.out.println("Touche saut pressée");
                     joueur.saut();
                 }
+
             }
         }
         else if (event.getEventType() == KeyEvent.KEY_RELEASED &&
                 (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT)) {
-            joueur.setDirection('i');
-            joueurVue.setDirection("immobile");
+            joueur.setDirection(0); // 0 pour immobile
+
+            joueurVue.setDirectionImmobile(derniereDirection == -1);
         }
     }
 }

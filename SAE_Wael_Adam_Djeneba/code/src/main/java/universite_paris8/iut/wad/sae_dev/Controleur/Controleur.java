@@ -60,7 +60,7 @@ public class Controleur implements Initializable {
         pane.setFocusTraversable(true);
         pane.addEventHandler(KeyEvent.KEY_PRESSED, clavier);
         pane.addEventHandler(KeyEvent.KEY_RELEASED, clavier);
-        pane.addEventHandler(MouseEvent.MOUSE_CLICKED, souris);  // Corrigé ici
+        pane.addEventHandler(MouseEvent.MOUSE_CLICKED, souris);
 
         initAnimation();
         gameLoop.play();
