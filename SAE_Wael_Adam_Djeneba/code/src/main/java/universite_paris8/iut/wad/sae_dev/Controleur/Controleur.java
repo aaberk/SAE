@@ -47,7 +47,7 @@ public class Controleur implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Terrain terrain = new Terrain();
-        new TerrainVue(terrain, tilePane);
+        TerrainVue terrainVue = new TerrainVue(terrain, tilePane);
 
         joueur = new Joueur(0, 100, terrain);
         joueurVue = new JoueurVue(joueur, pane);
@@ -55,7 +55,7 @@ public class Controleur implements Initializable {
         clavier = new Clavier(joueur, joueurVue);
         inventaire = new Inventaire();
         inventaireVue = new InventaireVue(pane, inventaire, paneInventaire);
-        souris = new Souris(inventaireVue);
+        souris = new Souris(inventaireVue, terrainVue, terrain, joueur); // Modification pour le terraforming
 
         pane.setFocusTraversable(true);
         pane.addEventHandler(KeyEvent.KEY_PRESSED, clavier);

@@ -1,4 +1,4 @@
-// Cette classe gère les entrées clavier pour déplacer le joueur.
+// Cette classe gère les entrées clavier pour déplacer le joueur et sélectionner des blocs.
 
 package universite_paris8.iut.wad.sae_dev.Controleur;
 
@@ -23,23 +23,28 @@ public class Clavier implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         if (event.getEventType() == KeyEvent.KEY_PRESSED) {
             switch (event.getCode()) {
-                case LEFT -> {
+                case Q,LEFT -> {
                     joueur.setDirection(-1); // -1 pour gauche
                     derniereDirection = -1;
                 }
-                case RIGHT -> {
+                case D,RIGHT -> {
                     joueur.setDirection(1); // 1 pour droite
                     derniereDirection = 1;
                 }
-                case SPACE -> {
+                case Z,SPACE -> {
                     System.out.println("Touche saut pressée");
                     joueur.saut();
                 }
-
+                case DIGIT1, NUMPAD1 -> joueur.setBlocSelectionne(1);
+                case DIGIT2, NUMPAD2 -> joueur.setBlocSelectionne(2);
+                case DIGIT3, NUMPAD3 -> joueur.setBlocSelectionne(3);
+                case DIGIT4, NUMPAD4 -> joueur.setBlocSelectionne(4);
+                case DIGIT5, NUMPAD5 -> joueur.setBlocSelectionne(5);
+                case DIGIT6, NUMPAD6 -> joueur.setBlocSelectionne(6);
             }
         }
         else if (event.getEventType() == KeyEvent.KEY_RELEASED &&
-                (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT)) {
+                (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.D || event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT)) {
             joueur.setDirection(0); // 0 pour immobile
 
             joueurVue.setDirectionImmobile(derniereDirection == -1);

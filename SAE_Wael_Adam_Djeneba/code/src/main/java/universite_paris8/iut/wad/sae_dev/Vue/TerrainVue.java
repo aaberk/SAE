@@ -17,7 +17,6 @@ public class TerrainVue {
         this.afficherTerrain();
     }
 
-
     public void afficherTerrain() {
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/ciel.png").toExternalForm());
         Image pelouse = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/pelouse.png").toExternalForm());
@@ -64,5 +63,10 @@ public class TerrainVue {
         }
 
         return tuile;
+    }
+
+    public void majAffichage() {
+        tilePane.getChildren().clear();
+        afficherTerrain();
     }
 }

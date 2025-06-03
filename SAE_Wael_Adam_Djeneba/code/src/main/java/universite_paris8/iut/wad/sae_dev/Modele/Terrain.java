@@ -45,6 +45,10 @@ public class Terrain {
         return hauteur() * TAILLE_TUILE;
     }
 
+    public int getTailleTuile() {
+        return TAILLE_TUILE;
+    }
+
     public boolean collision(int tuileX, int tuileY) {
         int colonne = tuileX / TAILLE_TUILE;
         int ligne = tuileY / TAILLE_TUILE;
@@ -55,5 +59,11 @@ public class Terrain {
 
         int type = typeTuile(colonne, ligne);
         return type != 1 ;
+    }
+
+    public void modifierBloc(int x, int y, int nouveauType) {
+        if (x >= 0 && x < largeur() && y >= 0 && y < hauteur()) {
+            typesTuiles[y][x] = nouveauType;
+        }
     }
 }

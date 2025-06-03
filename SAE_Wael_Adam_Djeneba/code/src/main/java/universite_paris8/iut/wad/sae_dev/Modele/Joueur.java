@@ -25,6 +25,8 @@ public class Joueur {
         // Vitesse de déplacement
         private int vitesse = 5;
 
+        private int blocSelectionne = 2; // Valeur par défaut : pelouse
+
         public Joueur(int x, int y, Terrain terrain) {
                 this.x.set(x);
                 this.y.set(y);
@@ -67,6 +69,15 @@ public class Joueur {
                 this.direction.set(direction);
         }
 
+        public int getBlocSelectionne() {
+                return blocSelectionne;
+        }
+
+        public void setBlocSelectionne(int bloc) {
+                this.blocSelectionne = bloc;
+                System.out.println("Bloc sélectionné : " + blocSelectionne); // utile pour debug
+        }
+
         public void seDeplacer() {
                 switch (getDirection()) {
                         case -1 -> deplacerGauche();
@@ -94,8 +105,11 @@ public class Joueur {
 
         public void saut() {
                 if (!dansLesAirs) {
-                        velociteY = FORCE_SAUT;
-                        dansLesAirs = true;
+                        if (!terrain.collision(getX(), getY() - 10) &&
+                                !terrain.collision(getX() + largeurJoueur, getY() - 10)) {
+                                velociteY = FORCE_SAUT;
+                                dansLesAirs = true;
+                        }
                 }
         }
 
