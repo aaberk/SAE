@@ -1,47 +1,33 @@
 package universite_paris8.iut.wad.sae_dev.Modele;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
+import javafx.collections.ObservableList;
+
 
 public class Inventaire {
-    private ObservableMap<TypeMateriaux, Integer> materiauxQuantites;
+    private ObservableList<Materiaux> materiauxList;
 
     public Inventaire() {
-        this.materiauxQuantites = FXCollections.observableHashMap();
-        this.materiauxQuantites.put(TypeMateriaux.COOKIE, 5);
-        this.materiauxQuantites.put(TypeMateriaux.BROWNIE, 3);
-        this.materiauxQuantites.put(TypeMateriaux.PELOUSE, 2);    }
-
-    public ObservableMap<TypeMateriaux, Integer> getMateriauxQuantites() {
-        return materiauxQuantites;
+        this.materiauxList = FXCollections.observableArrayList();
     }
 
-    public void ajouterMateriaux(TypeMateriaux type, int quantite) {
-        int quantiteActuelle = materiauxQuantites.getOrDefault(type, 0);
-        materiauxQuantites.put(type, quantiteActuelle + quantite);
-        System.out.println("Ajouté " + quantite + " " + type + " (total: " + materiauxQuantites.get(type) + ")");
+    public ObservableList<Materiaux> getMateriauxList() {
+        return materiauxList;
     }
 
-    public boolean retirerMateriaux(TypeMateriaux type, int quantite) {
-        int quantiteActuelle = materiauxQuantites.getOrDefault(type, 0);
-        if (quantiteActuelle >= quantite) {
-            int nouvelleQuantite = quantiteActuelle - quantite;
-            if (nouvelleQuantite == 0) {
-                materiauxQuantites.remove(type);
-            } else {
-                materiauxQuantites.put(type, nouvelleQuantite);
-            }
-            System.out.println("Retiré " + quantite + " " + type + " (reste: " + nouvelleQuantite + ")");
-            return true;
-        }
-        return false;
+    public void ajouterMateriaux(Materiaux m){
+        materiauxList.add(m);
     }
 
-    public int getQuantite(TypeMateriaux type) {
-        return materiauxQuantites.getOrDefault(type, 0);
+    public void retirerMateriaux(Materiaux m) {
+        materiauxList.remove(m);
     }
 
-    public boolean contientMateriaux(TypeMateriaux type) {
-        return materiauxQuantites.containsKey(type) && materiauxQuantites.get(type) > 0;
+    public boolean contientMateriaux(Materiaux m) {
+        return materiauxList.contains(m);
+    }
+
+    public int getNombreMateriaux() {
+        return materiauxList.size();
     }
 }

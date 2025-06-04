@@ -22,10 +22,10 @@ public class Joueur {
         private final double FORCE_SAUT = -10.0;
         private double velociteY = 0;
 
-
+        // Vitesse de déplacement
         private int vitesse = 5;
 
-        private int blocSelectionne = 2;
+        private int blocSelectionne = 2; // Valeur par défaut : pelouse
 
         public Joueur(int x, int y, Terrain terrain) {
                 this.x.set(x);

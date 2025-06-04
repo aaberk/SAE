@@ -9,6 +9,5 @@ public enum TypeMateriaux {
     BONBON_COCA,
     BROWNIE,
     CARAMEL,
-    BONBON_CLE,
-    PELOUSE
+    BONBON_CLE
 }

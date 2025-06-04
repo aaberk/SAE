@@ -1,31 +1,44 @@
 package universite_paris8.iut.wad.sae_dev.Vue;
 
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import universite_paris8.iut.wad.sae_dev.Modele.Inventaire;
+import universite_paris8.iut.wad.sae_dev.Modele.Materiaux;
+import universite_paris8.iut.wad.sae_dev.Modele.Role;
 import universite_paris8.iut.wad.sae_dev.Modele.TypeMateriaux;
 
+
 public class InventaireVue {
+
     private Pane pane;
     private Inventaire inventaire;
     private Pane paneInventaire;
+
     private final int TAILLECASE = 56;
     private final int TAILLEITEM = 42;
     private final int APPARITIONITEM = (TAILLECASE - TAILLEITEM)/2;
+
     private boolean fermer;
+
 
     public InventaireVue(Pane pane, Inventaire inventaire, Pane paneInventaire) {
         fermer = true;
+
         this.pane = pane;
-        this.inventaire = inventaire;
-        this.paneInventaire = paneInventaire;
+        this.inventaire=inventaire;
         afficherInventaire();
+
+        this.paneInventaire = paneInventaire;
+
+        inventaire.ajouterMateriaux(new Materiaux(TypeMateriaux.COOKIE, Role.CONSTRUCTION));
+        inventaire.ajouterMateriaux(new Materiaux(TypeMateriaux.BROWNIE, Role.CONSTRUCTION));
+        inventaire.ajouterMateriaux(new Materiaux(TypeMateriaux.CARAMEL, Role.CONSTRUCTION));
+        inventaire.ajouterMateriaux(new Materiaux(TypeMateriaux.PELLE, Role.OUTIL));
+        inventaire.ajouterMateriaux(new Materiaux(TypeMateriaux.CUILLERE, Role.OUTIL));
+        inventaire.ajouterMateriaux(new Materiaux(TypeMateriaux.SUCRE_ORGE, Role.ARME));
+        inventaire.ajouterMateriaux(new Materiaux(TypeMateriaux.BONBON_COCA, Role.SOIN));
+        inventaire.ajouterMateriaux(new Materiaux(TypeMateriaux.BONBON_CLE, Role.MONNAIE));
     }
 
     public boolean estFermer() {
@@ -42,80 +55,95 @@ public class InventaireVue {
         this.pane.getChildren().add(sacView);
     }
 
-    public void afficherContenu() {
+    public void afficherContenu (){
         fermer = false;
-        paneInventaire.getChildren().clear(); // Nettoyer avant d'afficher
 
-        // Images des matériaux
         Image cookie = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
-        Image pelouse = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/pelouse.png").toExternalForm());
-        Image brownie = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/terre.png").toExternalForm());
+        Image cle = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
+        Image pelle = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
+        Image cuillere = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
+        Image sucreOrge = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
+        Image bonbonCoca = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
+        Image brownie = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
+        Image caramel = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
+        Image bonbonCle = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
+
         Image inventaireVide = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/ciel1.png").toExternalForm());
+        ImageView inventaireVideVue;
 
         int x = 200;
         int y = 40;
 
-        for (TypeMateriaux type : inventaire.getMateriauxQuantites().keySet()) {
-            int quantite = inventaire.getQuantite(type);
+        if (!inventaire.getMateriauxList().isEmpty()) {
 
-            if (x > 500) {
-                x = 200;
-                y = y + TAILLECASE;
+            for (Materiaux materiaux : inventaire.getMateriauxList()) {
+
+                if(x>500){
+                    x = 200;
+                    y = y + TAILLECASE;
+                }
+
+                inventaireVideVue = new ImageView(inventaireVide);
+
+                inventaireVideVue.setFitHeight(TAILLECASE);
+                inventaireVideVue.setFitWidth(TAILLECASE);
+                inventaireVideVue.setTranslateY(y);
+                inventaireVideVue.setTranslateX(x);
+                paneInventaire.getChildren().add(inventaireVideVue);
+
+                ImageView img = new ImageView();
+                switch (materiaux.getNom()) {
+                    case COOKIE:
+                        img = new ImageView(cookie);
+                        break;
+                    case CLE:
+                        img = new ImageView(cle);
+                        break;
+                    case PELLE:
+                        img = new ImageView(pelle);
+                        break;
+                    case CUILLERE:
+                        img = new ImageView(cuillere);
+                        break;
+                    case SUCRE_ORGE:
+                        img = new ImageView(sucreOrge);
+                        break;
+                    case BONBON_COCA:
+                        img = new ImageView(bonbonCoca);
+                        break;
+                    case BROWNIE:
+                        img = new ImageView(brownie);
+                        break;
+                    case CARAMEL:
+                        img = new ImageView(caramel);
+                        break;
+                    case BONBON_CLE:
+                        img = new ImageView(bonbonCle);
+                        break;
+                }
+
+                img.setTranslateX(x+ APPARITIONITEM);
+                img.setTranslateY(y+ APPARITIONITEM);
+                img.setFitHeight(TAILLEITEM);
+                img.setFitWidth(TAILLEITEM);
+                paneInventaire.getChildren().add(img);
+
+                x=x+ TAILLECASE;
             }
-
-            // Fond de l'inventaire
-            ImageView inventaireVideVue = new ImageView(inventaireVide);
-            inventaireVideVue.setFitHeight(TAILLECASE);
-            inventaireVideVue.setFitWidth(TAILLECASE);
-            inventaireVideVue.setTranslateY(y);
-            inventaireVideVue.setTranslateX(x);
-            paneInventaire.getChildren().add(inventaireVideVue);
-
-            // Image du matériau
-            ImageView img = new ImageView();
-            switch (type) {
-                case COOKIE:
-                    img = new ImageView(cookie);
-                    break;
-                case PELOUSE:
-                    img = new ImageView(pelouse);
-                    break;
-                case BROWNIE:
-                    img = new ImageView(brownie);
-                    break;
-            }
-
-            img.setTranslateX(x + APPARITIONITEM);
-            img.setTranslateY(y + APPARITIONITEM);
-            img.setFitHeight(TAILLEITEM);
-            img.setFitWidth(TAILLEITEM);
-            paneInventaire.getChildren().add(img);
-
-            // Label pour la quantité
-            Label quantiteLabel = new Label(String.valueOf(quantite));
-            quantiteLabel.setTranslateX(x + TAILLECASE - 15);
-            quantiteLabel.setTranslateY(y + TAILLECASE - 15);
-            quantiteLabel.setTextFill(Color.WHITE);
-            quantiteLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-            quantiteLabel.setStyle("-fx-background-color: rgba(0,0,0,0.7); -fx-padding: 2px; -fx-background-radius: 3px;");
-            paneInventaire.getChildren().add(quantiteLabel);
-
-            x = x + TAILLECASE;
         }
 
-        // Remplir les cases vides
-        while (x < 500) {
-            ImageView inventaireVideVue = new ImageView(inventaireVide);
+        while (x<500){
+            inventaireVideVue = new ImageView(inventaireVide);
             inventaireVideVue.setFitHeight(TAILLECASE);
             inventaireVideVue.setFitWidth(TAILLECASE);
             inventaireVideVue.setTranslateY(y);
             inventaireVideVue.setTranslateX(x);
             paneInventaire.getChildren().add(inventaireVideVue);
-            x = x + TAILLECASE;
+            x=x+ TAILLECASE;
         }
     }
 
-    public void ouvrirContenu() {
+    public void ouvrirContenu(){
         paneInventaire.setVisible(true);
         afficherContenu();
     }
@@ -123,16 +151,17 @@ public class InventaireVue {
     public void fermerContenue() {
         fermer = true;
         paneInventaire.setVisible(false);
-        paneInventaire.getChildren().clear();
+        paneInventaire.getChildren().removeAll();
     }
 
-    public void rafraichirAffichage() {
-        if (!fermer) {
-            afficherContenu();
+    public boolean hitboxInventaire(double x, double y){
+        for (int i = 0; i < paneInventaire.getChildren().size(); i++){
+            if( x >= paneInventaire.getChildren().get(i).getTranslateX() && x <= paneInventaire.getChildren().get(i).getTranslateX() + TAILLECASE
+                    && y >= paneInventaire.getChildren().get(i).getTranslateY() && y <= paneInventaire.getChildren().get(i).getTranslateY() + TAILLECASE){
+                System.out.println("dans l'inventaire");
+                return true;
+            }
         }
-    }
-
-    public boolean hitboxInventaire(double x, double y) {
         return false;
     }
 }
