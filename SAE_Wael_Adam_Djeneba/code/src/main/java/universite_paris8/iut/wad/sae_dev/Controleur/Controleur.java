@@ -55,8 +55,8 @@ public class Controleur implements Initializable {
         clavier = new Clavier(joueur, joueurVue);
         inventaire = new Inventaire();
         inventaireVue = new InventaireVue(pane, inventaire, paneInventaire);
-        souris = new Souris(inventaireVue, terrainVue, terrain, joueur); // Modification pour le terraforming
 
+        souris = new Souris(inventaireVue, terrainVue, terrain, joueur, inventaire);
         pane.setFocusTraversable(true);
         pane.addEventHandler(KeyEvent.KEY_PRESSED, clavier);
         pane.addEventHandler(KeyEvent.KEY_RELEASED, clavier);
