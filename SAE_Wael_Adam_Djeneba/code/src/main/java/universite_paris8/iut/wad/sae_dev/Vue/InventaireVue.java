@@ -159,7 +159,6 @@ public class InventaireVue {
             if( x >= paneInventaire.getChildren().get(i).getTranslateX() && x <= paneInventaire.getChildren().get(i).getTranslateX() + TAILLECASE
                     && y >= paneInventaire.getChildren().get(i).getTranslateY() && y <= paneInventaire.getChildren().get(i).getTranslateY() + TAILLECASE){
                 System.out.println("dans l'inventaire");
-                return true;
             }
         }
         return false;
