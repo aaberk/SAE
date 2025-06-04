@@ -29,7 +29,8 @@ public class Clavier implements EventHandler<KeyEvent> {
                 }
                 case D,RIGHT -> {
                     joueur.setDirection(1); // 1 pour droite
-                    derniereDirection = 1;
+                    derniereDirection = 1; // TODO à supprimer, à la place utiliser le oldval du listener de direction (dans JoueurVue)
+
                 }
                 case Z,SPACE -> {
                     System.out.println("Touche saut pressée");

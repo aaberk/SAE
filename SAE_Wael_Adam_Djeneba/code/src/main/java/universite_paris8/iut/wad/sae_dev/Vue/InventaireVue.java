@@ -43,7 +43,8 @@ public class InventaireVue {
 
     public boolean estFermer() {
         return fermer;
-    }
+    }//TODO a priori devrait se toruver côté modèle dans Inventaire
+
 
     private void afficherInventaire() {
         Image sac = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/ciel1.png").toExternalForm());
@@ -57,7 +58,7 @@ public class InventaireVue {
 
     public void afficherContenu (){
         fermer = false;
-
+        //TODO à charger une seule fois
         Image cookie = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
         Image cle = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
         Image pelle = new Image(getClass().getResource("/universite_paris8/iut/wad/sae_dev/images/cookie.png").toExternalForm());
@@ -159,6 +160,7 @@ public class InventaireVue {
             if( x >= paneInventaire.getChildren().get(i).getTranslateX() && x <= paneInventaire.getChildren().get(i).getTranslateX() + TAILLECASE
                     && y >= paneInventaire.getChildren().get(i).getTranslateY() && y <= paneInventaire.getChildren().get(i).getTranslateY() + TAILLECASE){
                 System.out.println("dans l'inventaire");
+                return true;
             }
         }
         return false;
